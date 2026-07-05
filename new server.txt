@@ -1,0 +1,82 @@
+Main IP: 103.168.19.9
+python manage.py import_old_newspdfs --city Delhi--section Main
+scp -r -P 22 "C:\Users\sanja\OneDrive\Documents\ebook\backend\media" root@103.168.19.9:/var/www/ebook/
+
+direct server to server
+scp -r /var/www/gargachary-times/media root@103.168.19.9:/var/www/gargachary-times/
+
+multiple files 
+
+scp -r /var/www/dharmendra/media \ /var/www/dharmendra/mbdb \ root@103.168.19.9:/var/www/dharmendra/
+
+Password:t79oVfZ8p3A2NwY
+
+scp -r "E:\1.Samaj\01-Rasik Ananya Nripati Shri Swami ju Maharaj-(Bhadon Shukla Dwitiya se Astami Tak)-8 Days" root@103.168.19.9:/var/www/ebook/audio_uploads/rasik-ananya
+
+nano /etc/apache2/sites-available/aaj_ka_mudda.conf
+
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2 --bitrate 128k
+
+for original
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2 --no-compress
+
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2
+
+cd C:\Users\sanja\OneDrive\Documents\ebook\android
+$env:JAVA_HOME='C:\Program Files\Android\Android Studio\jbr'
+$env:GRADLE_USER_HOME='C:\Users\sanja\OneDrive\Documents\ebook\.gradle-cache'
+.\gradlew.bat assembleRelease
+
+
+
+
+phpMyAdmin
+
+Username: admin
+Password: V9#kL2@pX7!mQ4$zR8
+
+bind-address = 0.0.0.0
+
+------------------
+CREATE DATABASE ebook
+
+CHARACTER SET utf8mb4
+
+COLLATE utf8mb4_unicode_ci;
+
+
+CREATE USER 'ebook'@'%' IDENTIFIED BY 'Hello12345678#$@'; 
+
+GRANT ALL PRIVILEGES ON ebook.* TO 'ebook'@'%';
+
+FLUSH PRIVILEGES;
+
+
+<VirtualHost *:80>
+    ServerName dharmrakshasangh.com
+    ServerAlias www.dharmrakshasangh.com
+    ServerAdmin contact@example.com
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+    Alias /static /var/www/saurabh_gaud/staticfiles
+    <Directory /var/www/saurabh_gaud/staticfiles>
+        Require all granted
+    </Directory>
+    
+    Alias /media /var/www/saurabh_gaud/media
+    <Directory /var/www/saurabh_gaud/media>
+        Require all granted
+    </Directory>
+    
+    <Directory /var/www/saurabh_gaud/dharm_raksha_sangh>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+    
+    WSGIDaemonProcess saurabh_gaud python-home=/var/www/saurabh_gaud/env python-path=/var/www/saurabh_gaud
+    WSGIProcessGroup saurabh_gaud
+    WSGIScriptAlias /  /var/www/saurabh_gaud/dharm_raksha_sangh/wsgi.py
+</VirtualHost>

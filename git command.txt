@@ -1,0 +1,11 @@
+echo "# aaj_ka_mudda" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/sanjay1994singh/aaj_ka_mudda.git
+git push -u origin master
+…or push an existing repository from the command line
+git remote add origin https://github.com/sanjay1994singh/aaj_ka_mudda.git
+git branch -M master
+git push -u origin master
