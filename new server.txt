@@ -2,25 +2,51 @@ Main IP: 103.168.19.9
 python manage.py import_old_newspdfs --city Delhi--section Main
 scp -r -P 22 "C:\Users\sanja\OneDrive\Documents\ebook\backend\media" root@103.168.19.9:/var/www/ebook/
 
+Password:t79oVfZ8p3A2NwY
+
+new
+
+..\upload_audio_to_vps.ps1 `
+  -LocalFolder "E:\1.Samaj\11-Shri Swami Bhagvan Das ju-(Ashwina Shukla Saptami Se Dasami Tak)-4 Days" `
+  -RemoteBaseFolder "/var/www/ebook/audio_uploads" `
+  -CategoryId 6 `
+  -SpeakerId 12
+
+old
+..\upload_audio_to_vps.ps1 `
+  -LocalFolder "E:\1.Samaj\10-Shri Swami Govardhan Dev ju-(Ashadha Shukla Chhati  Se Dasami Tak)-5 Days" `
+  -RemoteFolder "/var/www/ebook/audio_uploads/rasik-ananya" `
+  -CategoryId 6 `
+  -SpeakerId 10
+
+
+cd /var/www/theupmedia
+source env/bin/activate
+python manage.py migrate
+sudo systemctl restart theupmedia-celery
+sudo systemctl restart apache2
+
+scp -r "E:\1.Samaj\04-Shri Swami Saras Dev ju-(Ashwina Shukla Dwitiya se Sarad Purnima Tak)-4 Days" root@103.168.19.9:/var/www/ebook/audio_uploads
+
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads" --category-id 6 --speaker-id 4 --bitrate 128k
+
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads" --category-id 6 --speaker-id 4 --bitrate 64k
+
+for original
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads" --category-id 6 --speaker-id 1 --no-compress
+
+python manage.py import_audio_folder "/var/www/ebook/audio_uploads" --category-id 6 --speaker-id 2
+
 direct server to server
+
 scp -r /var/www/gargachary-times/media root@103.168.19.9:/var/www/gargachary-times/
 
 multiple files 
 
 scp -r /var/www/dharmendra/media \ /var/www/dharmendra/mbdb \ root@103.168.19.9:/var/www/dharmendra/
 
-Password:t79oVfZ8p3A2NwY
-
-scp -r "E:\1.Samaj\01-Rasik Ananya Nripati Shri Swami ju Maharaj-(Bhadon Shukla Dwitiya se Astami Tak)-8 Days" root@103.168.19.9:/var/www/ebook/audio_uploads/rasik-ananya
 
 nano /etc/apache2/sites-available/aaj_ka_mudda.conf
-
-python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2 --bitrate 128k
-
-for original
-python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2 --no-compress
-
-python manage.py import_audio_folder "/var/www/ebook/audio_uploads/rasik-ananya" --category-id 6 --speaker-id 2
 
 cd C:\Users\sanja\OneDrive\Documents\ebook\android
 $env:JAVA_HOME='C:\Program Files\Android\Android Studio\jbr'
@@ -38,16 +64,16 @@ Password: V9#kL2@pX7!mQ4$zR8
 bind-address = 0.0.0.0
 
 ------------------
-CREATE DATABASE ebook
+CREATE DATABASE harinampress
 
 CHARACTER SET utf8mb4
 
 COLLATE utf8mb4_unicode_ci;
 
 
-CREATE USER 'ebook'@'%' IDENTIFIED BY 'Hello12345678#$@'; 
+CREATE USER 'harinampress'@'%' IDENTIFIED BY 'Hello12345678#$@'; 
 
-GRANT ALL PRIVILEGES ON ebook.* TO 'ebook'@'%';
+GRANT ALL PRIVILEGES ON harinampress.* TO 'harinampress'@'%';
 
 FLUSH PRIVILEGES;
 
@@ -80,3 +106,10 @@ FLUSH PRIVILEGES;
     WSGIProcessGroup saurabh_gaud
     WSGIScriptAlias /  /var/www/saurabh_gaud/dharm_raksha_sangh/wsgi.py
 </VirtualHost>
+
+<iframe
+                            src="https://legitpro.co.in:9898/samachar24/samachar24/embed.html?autoplay=1&mute=1&playsinline=1"
+                            loading="lazy"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
